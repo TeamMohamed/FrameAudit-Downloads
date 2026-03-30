@@ -215,14 +215,15 @@ function setupTurnstile() {
         "expired-callback"() {
           turnstileToken = "";
         },
-        "error-callback"() {
+        "error-callback"(errorCode) {
           turnstileToken = "";
-          setStatus("The human-verification challenge could not load. Refresh and try again.", "error");
+          const suffix = typeof errorCode === "string" && errorCode ? ` Code: ${errorCode}.` : "";
+          setStatus(`The human-verification challenge reported an error.${suffix} Check browser blockers/privacy protection and refresh.`, "error");
         }
       });
     })
     .catch(() => {
-      setStatus("The human-verification challenge could not load. Refresh and try again.", "error");
+      setStatus("The Cloudflare Turnstile script could not load. Check browser blockers/privacy protection and refresh.", "error");
     });
 }
 
