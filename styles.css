@@ -300,6 +300,10 @@ h3 {
   gap: 1rem;
 }
 
+.hero-panel {
+  align-content: start;
+}
+
 .card,
 .pricing-card,
 .use-case,
@@ -308,12 +312,32 @@ h3 {
   border-radius: var(--radius);
   background: var(--bg-panel);
   box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
 }
 
 .card,
 .pricing-card {
   padding: 1.55rem;
+}
+
+.hero-figure {
+  overflow: hidden;
+  padding: 0;
+}
+
+.hero-figure img {
+  display: block;
+  width: 100%;
+  min-height: 420px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.hero-figure figcaption {
+  padding: 1rem 1.2rem 1.15rem;
+  color: rgba(244, 239, 230, 0.74);
+  line-height: 1.65;
 }
 
 .signal-window {
@@ -847,6 +871,10 @@ h3 {
   .trust-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .hero-figure img {
+    min-height: 360px;
+  }
 }
 
 @media (max-width: 760px) {
@@ -902,5 +930,9 @@ h3 {
 
   h1 {
     max-width: 100%;
+  }
+
+  .hero-figure img {
+    min-height: 280px;
   }
 }
