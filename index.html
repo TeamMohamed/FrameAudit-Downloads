@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FrameAudit | Local-First Video Integrity Review</title>
+  <meta
+    name="description"
+    content="FrameAudit helps investigators, legal teams, and analysts assess disputed footage across continuity, timing, compression, audio, and spatial persistence, then package the result into a structured review bundle."
+  >
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <span class="brand-mark">FA</span>
+        <span>
+          <strong>FrameAudit</strong>
+          <small>Local-first integrity workflow for contested video evidence</small>
+        </span>
+      </a>
+      <nav class="site-nav">
+        <a href="#method">Method</a>
+        <a href="#bundle">Bundle</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="./value.html">Value</a>
+        <a href="#proof">Proof</a>
+        <a href="./contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section">
+        <div class="hero-copy reveal-up">
+          <p class="eyebrow">Institutional evidence review</p>
+          <h1>Confidential review for contested footage in high-stakes civil, corporate, and public-interest matters.</h1>
+          <p class="hero-body">
+            FrameAudit is designed for corporate investigations teams, claimant-side civil litigators challenging governments or police, public inquiries, oversight bodies, insurers, and judiciary-facing matters that need a defensible assessment of contested recordings. The workflow tests continuity, timing, compression, audio, and spatial persistence, then packages the result into a structured review bundle built for counsel, tribunal, or executive review.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="mailto:TeamMohamed@proton.me?subject=FrameAudit%20Case%20Review%20Request">Open Confidential Review</a>
+            <a class="button button-secondary" href="#proof">See Sample Bundle</a>
+            <a class="button button-tertiary" href="https://github.com/TeamMohamed/FrameAudit-Downloads/releases/latest/download/FrameAudit-windows-x64.zip">Download for Windows</a>
+          </div>
+          <p class="download-note">
+            Current public build: <strong>v0.1.0</strong> for Windows x64. <a href="https://github.com/TeamMohamed/FrameAudit-Downloads/releases/latest/download/SHA256SUMS.txt">SHA256 checksums</a>.
+          </p>
+          <div class="build-strip">
+            <div class="build-strip__item">
+              <span class="build-strip__label">Current public build</span>
+              <strong>v0.1.0</strong>
+            </div>
+            <div class="build-strip__item">
+              <span class="build-strip__label">Direct Windows download</span>
+              <a href="https://github.com/TeamMohamed/FrameAudit-Downloads/releases/latest/download/FrameAudit-windows-x64.zip">Windows x64 bundle</a>
+            </div>
+            <div class="build-strip__item">
+              <span class="build-strip__label">Published checksum</span>
+              <a href="https://github.com/TeamMohamed/FrameAudit-Downloads/releases/latest/download/SHA256SUMS.txt">Published SHA256 checksum</a>
+            </div>
+          </div>
+          <div class="trust-strip">
+            <span>Confidential intake</span>
+            <span>Local-first evidence handling</span>
+            <span>Multi-signal review</span>
+            <span>Bundle ready for counsel or tribunal</span>
+          </div>
+        </div>
+
+        <aside class="hero-panel reveal-up delay-1">
+          <section class="signal-window card">
+            <div class="panel-kicker">
+              <span>Finding Window</span>
+              <span class="severity">High Severity</span>
+            </div>
+            <p class="window-time">00:16:58.5 - 00:17:02.5</p>
+            <h2>Multi-signal anomaly window</h2>
+            <p>
+              Continuity, timing, and compression support converge inside the same review interval.
+            </p>
+            <div class="tag-row">
+              <span>continuity</span>
+              <span>timing</span>
+              <span>compression</span>
+            </div>
+            <div class="signal-chart" aria-hidden="true">
+              <div class="signal-chart__bar signal-chart__bar--strong"></div>
+              <div class="signal-chart__bar signal-chart__bar--medium"></div>
+              <div class="signal-chart__bar signal-chart__bar--light"></div>
+            </div>
+          </section>
+
+          <section class="bundle-manifest card">
+            <div class="panel-kicker">
+              <span>Bundle Output</span>
+              <span>Ready for handoff</span>
+            </div>
+            <ul>
+              <li>summary.md</li>
+              <li>summary.docx</li>
+              <li>findings.json</li>
+              <li>source_fingerprint.json</li>
+              <li>checksums.txt</li>
+              <li>artifacts/</li>
+            </ul>
+          </section>
+        </aside>
+      </section>
+
+      <section class="section section-intro reveal-up delay-2">
+        <p class="eyebrow">Why this exists</p>
+        <h2>When footage is disputed, visuals alone are not enough.</h2>
+        <p>
+          A recording can look believable while still containing continuity breaks, timing drift, compression inconsistencies, or structural anomalies. FrameAudit examines how a recording behaves across time, structure, motion, and encoding, then packages that assessment into a repeatable review bundle suited to litigation, internal investigations, regulatory scrutiny, and public-interest disputes.
+        </p>
+      </section>
+
+      <section class="section" id="method">
+        <div class="section-heading reveal-up">
+          <div>
+            <p class="eyebrow">Multi-signal engine</p>
+            <h2>Corroborated signals, not one opaque score.</h2>
+          </div>
+          <p>
+            The product is strongest when it explains how a finding is supported. Each signal contributes to a reviewable consistency profile rather than a black-box verdict.
+          </p>
+        </div>
+        <div class="card-grid card-grid--signals">
+          <article class="card reveal-up">
+            <h3>Continuity and Frame Structure</h3>
+            <p>Examines frame-to-frame behavior for discontinuities, drift, and structural breaks.</p>
+          </article>
+          <article class="card reveal-up delay-1">
+            <h3>Motion and Scene Behaviour</h3>
+            <p>Flags transitions that do not behave like a naturally continuous recording.</p>
+          </article>
+          <article class="card reveal-up delay-2">
+            <h3>Timeline Consistency</h3>
+            <p>Checks whether sequence, timing, and adjacent signals align across the review window.</p>
+          </article>
+          <article class="card reveal-up">
+            <h3>Compression Irregularities</h3>
+            <p>Looks for encoding changes and compression patterns that deserve closer review.</p>
+          </article>
+          <article class="card reveal-up delay-1">
+            <h3>Audio Continuity</h3>
+            <p>Uses supporting audio behavior to strengthen or weaken a finding window.</p>
+          </article>
+          <article class="card reveal-up delay-2">
+            <h3>Spatial Persistence</h3>
+            <p>Tracks whether anchors and scene structure persist the way a continuous clip should.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section split-section" id="bundle">
+        <article class="card reveal-up">
+          <p class="eyebrow">Review bundle</p>
+          <h2>A result bundle built for review, not just a score.</h2>
+          <p>
+            FrameAudit produces a structured package designed for handoff, archiving, and follow-up review. You receive a structured review package, not just a vague output.
+          </p>
+        </article>
+        <article class="card card-list reveal-up delay-1">
+          <ul>
+            <li>Executive summary</li>
+            <li>DOCX report for delivery</li>
+            <li>Ranked anomaly windows</li>
+            <li>Findings JSON</li>
+            <li>Source fingerprint and tool record</li>
+            <li>Checksums</li>
+            <li>Supporting artifacts and logs</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section" id="pricing">
+        <div class="section-heading reveal-up">
+          <div>
+            <p class="eyebrow">Commercial path</p>
+            <h2>Start with case review. Move to software when the workflow fits.</h2>
+          </div>
+          <p>
+            Disputed video evidence is rarely a casual purchase decision. Service-first pricing gives buyers clarity before self-serve tooling, and each offer has a clear delivery window so clients know what pace to expect.
+          </p>
+        </div>
+        <div class="pricing-grid">
+          <article class="pricing-card pricing-card--featured reveal-up">
+            <div class="pricing-card__topline">Best starting point</div>
+            <h3>FrameAudit Case Review</h3>
+            <p class="price">GBP 950 to GBP 1,500</p>
+            <p class="pricing-card__meta">Typical turnaround: 3 to 5 business days</p>
+            <p class="pricing-card__body">
+              Best for disputed footage that needs a structured technical review without forcing the client to learn the software first.
+            </p>
+            <ul>
+              <li>Intake and scope review</li>
+              <li>Multi-signal analysis run</li>
+              <li>Ranked anomaly windows</li>
+              <li>Executive summary</li>
+              <li>Review-ready evidence bundle</li>
+            </ul>
+            <a class="button button-primary" href="mailto:TeamMohamed@proton.me?subject=FrameAudit%20Case%20Review%20Request">Request Case Review</a>
+          </article>
+
+          <article class="pricing-card reveal-up delay-1">
+            <div class="pricing-card__topline">High-priority review</div>
+            <h3>Complex or Urgent Case Review</h3>
+            <p class="price">GBP 1,500 to GBP 2,500+</p>
+            <p class="pricing-card__meta">Priority window: 24 to 48 hours when practical</p>
+            <p class="pricing-card__body">
+              For urgent matters, larger files, complex review questions, or higher-stakes handoff requirements.
+            </p>
+            <ul>
+              <li>Everything in Case Review</li>
+              <li>Priority scheduling</li>
+              <li>Deeper review pass when needed</li>
+              <li>Expanded supporting artifacts</li>
+            </ul>
+            <a class="button button-secondary" href="mailto:TeamMohamed@proton.me?subject=FrameAudit%20Urgent%20Review%20Request">Discuss Urgent Review</a>
+          </article>
+
+          <article class="pricing-card reveal-up delay-2">
+            <div class="pricing-card__topline">Follow-on product</div>
+            <h3>Investigator Edition</h3>
+            <p class="price">GBP 199 to GBP 499</p>
+            <p class="pricing-card__meta">Access window: same day download and setup</p>
+            <p class="pricing-card__body">
+              For users who already understand the workflow and want local execution through the Windows app or CLI.
+            </p>
+            <ul>
+              <li>Windows build</li>
+              <li>Desktop launcher and CLI</li>
+              <li>Official bundle workflow</li>
+              <li>Documentation and examples</li>
+            </ul>
+            <a class="button button-tertiary" href="./pricing.html">View Pricing and Delivery</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section value-section" id="value">
+        <div class="section-heading reveal-up">
+          <div>
+            <p class="eyebrow">Commercial value</p>
+            <h2>FrameAudit can be framed as a serious commercial asset, not just a technical prototype.</h2>
+          </div>
+          <p>
+            The package now has a cleaner commercial story: a strategic asset value band, a replacement-cost case, and a service-led revenue workflow aimed at institutional, litigation, and public-interest buyers.
+          </p>
+        </div>
+
+        <div class="value-stat-grid reveal-up delay-1">
+          <article class="card value-stat">
+            <p class="value-stat__label">Indicative strategic asset value</p>
+            <span class="value-stat__amount">GBP 150k to GBP 500k</span>
+            <p class="value-stat__copy">A realistic current value band for the package as a private strategic asset before broader market traction.</p>
+          </article>
+          <article class="card value-stat">
+            <p class="value-stat__label">Stronger strategic buyer fit</p>
+            <span class="value-stat__amount">GBP 350k to GBP 750k</span>
+            <p class="value-stat__copy">Possible with the right institutional buyer who values the workflow, delivery path, and buyer positioning.</p>
+          </article>
+          <article class="card value-stat">
+            <p class="value-stat__label">Illustrative annual workflow revenue</p>
+            <span class="value-stat__amount">GBP 66k to GBP 180k+</span>
+            <p class="value-stat__copy">A service-led lane is already visible through standard reviews, urgent reviews, and follow-on software access.</p>
+          </article>
+        </div>
+
+        <article class="card reveal-up delay-2">
+          <h3>Open the full commercial value brief.</h3>
+          <p>
+            See the dedicated value page for indicative strategic value bands, replacement-cost framing, workflow economics, and market context against established vendors.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./value.html">View Commercial Value</a>
+            <a class="button button-secondary" href="./pricing.html">View Pricing and Delivery</a>
+          </div>
+        </article>
+
+        <p class="value-footnote reveal-up delay-2">
+          Indicative commercial framing only. Not a guaranteed sale price, revenue outcome, or forensic conclusion.
+        </p>
+      </section>
+
+      <section class="section proof-section" id="proof">
+        <article class="card proof-card reveal-up">
+          <div class="section-heading section-heading--stacked">
+            <div>
+              <p class="eyebrow">Proof</p>
+              <h2>See a real finding package.</h2>
+            </div>
+            <p>
+              FrameAudit is designed to show where the recording deserves closer review, how strongly the signals align, and what supporting material was generated for that interval.
+            </p>
+          </div>
+          <div class="proof-console">
+            <div>00:16:58.5 - 00:17:02.5</div>
+            <div>High-severity anomaly window</div>
+            <div>Support channels: continuity, timing, compression</div>
+            <div>Artifacts: review clip, summary entry, window report</div>
+          </div>
+        </article>
+
+        <div class="use-case-grid">
+          <div class="use-case reveal-up">Corporate Investigations</div>
+          <div class="use-case reveal-up delay-1">Civil Claims Against Police or Government</div>
+          <div class="use-case reveal-up delay-2">Courts, Tribunals, and Public Inquiries</div>
+          <div class="use-case reveal-up">Insurers, Oversight Bodies, and Serious Verification Teams</div>
+        </div>
+      </section>
+
+      <section class="section split-section" id="fit">
+        <article class="card reveal-up">
+          <p class="eyebrow">Who this is for</p>
+          <h2>Best fit for high-stakes buyers who need a reviewable record.</h2>
+          <ul class="stack-list">
+            <li>Large companies handling internal investigations, misconduct allegations, disputes, or reputational incidents.</li>
+            <li>Claimant-side civil teams pursuing actions against governments, police forces, or other public bodies.</li>
+            <li>External counsel, expert-support teams, courts, tribunals, and public inquiries dealing with contested recordings.</li>
+            <li>Insurers, risk teams, regulators, and oversight bodies that need a structured evidence package rather than a raw model score.</li>
+            <li>Journalists, NGOs, and verification units working on serious public-interest matters where chain of reasoning matters.</li>
+          </ul>
+        </article>
+
+        <article class="card reveal-up delay-1">
+          <p class="eyebrow">Who it is not for</p>
+          <h2>Not designed for low-context or mass-volume use.</h2>
+          <ul class="stack-list">
+            <li>Casual consumer disputes where the issue does not justify a structured technical review.</li>
+            <li>Teams seeking instant automated verdicts without analyst review, scope confirmation, or case context.</li>
+            <li>Bulk moderation or high-volume social screening workflows where speed matters more than defensible reporting.</li>
+            <li>Matters where no original recording, timeline, or dispute context can be supplied for review.</li>
+            <li>Buyers looking to replace a full forensic laboratory outright rather than secure a focused disputed-video workflow.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section cta-section reveal-up" id="contact">
+        <p class="eyebrow">Get started</p>
+        <h2>Open a confidential review before the recording becomes a disclosure problem.</h2>
+        <p>
+          Start with pricing and delivery, then email TeamMohamed@proton.me with a short case brief, the recording details, and the deadline you are working to.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="mailto:TeamMohamed@proton.me?subject=FrameAudit%20Case%20Review%20Request">Request Confidential Review</a>
+          <a class="button button-secondary" href="./pricing.html">View Pricing and Delivery</a>
+          <a class="button button-tertiary" href="./contact.html">Open Contact Page</a>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
