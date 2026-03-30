@@ -864,7 +864,18 @@ h3 {
 }
 
 .screened-form {
+  position: relative;
   margin-top: 1.25rem;
+}
+
+.form-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .form-grid {
@@ -938,6 +949,33 @@ h3 {
 .form-check input {
   margin-top: 0.2rem;
   accent-color: var(--accent);
+}
+
+.form-challenge {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(216, 186, 106, 0.16);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.form-challenge__label {
+  margin: 0;
+  color: rgba(244, 239, 230, 0.6);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.form-challenge__widget {
+  margin-top: 0.85rem;
+}
+
+.form-challenge__note {
+  margin: 0.85rem 0 0;
+  color: rgba(244, 239, 230, 0.66);
+  line-height: 1.6;
 }
 
 .form-actions {

@@ -20,18 +20,34 @@ const statusNode = document.getElementById("screened-contact-status");
 const submitNode = document.getElementById("screened-contact-submit");
 const fallbackNode = document.getElementById("screened-contact-fallback");
 const noteNode = document.getElementById("screened-contact-note");
+const challengeNode = document.getElementById("screened-contact-challenge");
+const challengeWidgetNode = document.getElementById("screened-contact-turnstile");
 const endpointMeta = document.querySelector('meta[name="frameaudit-intake-endpoint"]');
+const turnstileMeta = document.querySelector('meta[name="frameaudit-turnstile-site-key"]');
 const intakeEndpoint = normalizeEndpoint(endpointMeta?.getAttribute("content") ?? "");
+const turnstileSiteKey = normalizeEndpoint(turnstileMeta?.getAttribute("content") ?? "");
+const minimumScreeningSeconds = 4;
+let formOpenedAtMs = Date.now();
+let turnstileToken = "";
+let turnstileWidgetId = null;
+let turnstileReadyPromise = null;
 
 if (submitNode && noteNode) {
   if (intakeEndpoint) {
     submitNode.textContent = "Submit Screened Inquiry";
-    noteNode.textContent = "This build is configured to submit inquiries to a server-side screening endpoint. Rejected domains stop there and never reach the intake mailbox.";
+    noteNode.textContent = turnstileSiteKey
+      ? "This build is configured to submit inquiries to a server-side screening endpoint. Rejected domains, rapid-fire submissions, obvious bots, repeated bad traffic, and failed challenge checks stop there and never reach the intake mailbox."
+      : "This build is configured to submit inquiries to a server-side screening endpoint. Rejected domains, rapid-fire submissions, obvious bots, and repeated bad traffic stop there and never reach the intake mailbox.";
     fallbackNode?.setAttribute("hidden", "hidden");
   } else {
     noteNode.textContent = "This build is not yet pointing at a server-side screening endpoint. Passing screening opens a structured email draft for manual review.";
     fallbackNode?.removeAttribute("hidden");
   }
+}
+
+if (intakeEndpoint && turnstileSiteKey && challengeNode) {
+  challengeNode.hidden = false;
+  setupTurnstile();
 }
 
 if (form && statusNode) {
@@ -40,9 +56,18 @@ if (form && statusNode) {
     clearStatus();
 
     const submission = readSubmission();
+    if (submission.officeExtension) {
+      setStatus("Inquiry could not be screened. Use the visible fields only.", "error");
+      return;
+    }
 
     if (!form.reportValidity()) {
       setStatus("Complete all required fields before screening the inquiry.", "error");
+      return;
+    }
+
+    if (submission.elapsedSeconds < minimumScreeningSeconds) {
+      setStatus("Keep the form open a little longer before submitting so screening can finish.", "error");
       return;
     }
 
@@ -77,6 +102,11 @@ if (form && statusNode) {
       return;
     }
 
+    if (intakeEndpoint && turnstileSiteKey && !submission.turnstileToken) {
+      setStatus("Complete the human-verification challenge before submitting the inquiry.", "error");
+      return;
+    }
+
     if (intakeEndpoint) {
       await submitToEndpoint(submission);
       return;
@@ -93,6 +123,7 @@ if (form && statusNode) {
       `Organization website: ${normalizeWebsite(submission.organizationWebsite)}`,
       `Inquiry type: ${submission.inquiryType}`,
       `Timeline: ${submission.timeline}`,
+      `Screening duration: ${submission.elapsedSeconds} seconds`,
       "",
       "Matter summary:",
       submission.matterSummary,
@@ -109,6 +140,7 @@ if (form && statusNode) {
 }
 
 function readSubmission() {
+  const submittedAtMs = Date.now();
   return {
     fullName: getValue("full-name"),
     jobTitle: getValue("job-title"),
@@ -118,6 +150,11 @@ function readSubmission() {
     inquiryType: getValue("inquiry-type"),
     timeline: getValue("timeline"),
     matterSummary: getValue("matter-summary"),
+    officeExtension: getValue("office-extension"),
+    formStartedAt: new Date(formOpenedAtMs).toISOString(),
+    submittedAtClient: new Date(submittedAtMs).toISOString(),
+    elapsedSeconds: Math.max(0, Math.floor((submittedAtMs - formOpenedAtMs) / 1000)),
+    turnstileToken,
     screeningConfirmation: Boolean(document.getElementById("screening-confirmation")?.checked)
   };
 }
@@ -139,9 +176,77 @@ async function submitToEndpoint(submission) {
     }
 
     form?.reset();
+    resetFormWindow();
+    resetTurnstile();
     setStatus(data.message ?? "Inquiry accepted. You will receive a reply after screening.", "success");
   } catch {
     setStatus("The screening service is unavailable right now. Try again later or use the direct email fallback in a build that exposes it.", "error");
+    resetTurnstile();
+  }
+}
+
+function resetFormWindow() {
+  formOpenedAtMs = Date.now();
+}
+
+function setupTurnstile() {
+  turnstileReadyPromise = loadTurnstileScript();
+  turnstileReadyPromise
+    .then(() => {
+      if (!globalThis.turnstile || !challengeWidgetNode || turnstileWidgetId !== null) {
+        return;
+      }
+
+      turnstileWidgetId = globalThis.turnstile.render(challengeWidgetNode, {
+        sitekey: turnstileSiteKey,
+        theme: "dark",
+        appearance: "interaction-only",
+        callback(token) {
+          turnstileToken = token;
+        },
+        "expired-callback"() {
+          turnstileToken = "";
+        },
+        "error-callback"() {
+          turnstileToken = "";
+          setStatus("The human-verification challenge could not load. Refresh and try again.", "error");
+        }
+      });
+    })
+    .catch(() => {
+      setStatus("The human-verification challenge could not load. Refresh and try again.", "error");
+    });
+}
+
+function loadTurnstileScript() {
+  if (globalThis.turnstile) {
+    return Promise.resolve();
+  }
+
+  const existing = document.querySelector('script[data-frameaudit-turnstile="true"]');
+  if (existing) {
+    return new Promise((resolve, reject) => {
+      existing.addEventListener("load", () => resolve(), { once: true });
+      existing.addEventListener("error", () => reject(new Error("turnstile load failed")), { once: true });
+    });
+  }
+
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.dataset.frameauditTurnstile = "true";
+    script.addEventListener("load", () => resolve(), { once: true });
+    script.addEventListener("error", () => reject(new Error("turnstile load failed")), { once: true });
+    document.head.append(script);
+  });
+}
+
+function resetTurnstile() {
+  turnstileToken = "";
+  if (globalThis.turnstile && turnstileWidgetId !== null) {
+    globalThis.turnstile.reset(turnstileWidgetId);
   }
 }
 
