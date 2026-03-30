@@ -863,6 +863,118 @@ h3 {
   line-height: 1.7;
 }
 
+.screened-form {
+  margin-top: 1.25rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.form-field--full {
+  grid-column: 1 / -1;
+}
+
+.form-field span,
+.form-check span {
+  color: rgba(244, 239, 230, 0.6);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--ink);
+  font: inherit;
+}
+
+.form-field select {
+  appearance: none;
+}
+
+.form-field textarea {
+  min-height: 11rem;
+  resize: vertical;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: rgba(244, 239, 230, 0.34);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: rgba(216, 186, 106, 0.44);
+  box-shadow: 0 0 0 3px rgba(216, 186, 106, 0.14);
+}
+
+.form-check {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(216, 186, 106, 0.16);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.form-check input {
+  margin-top: 0.2rem;
+  accent-color: var(--accent);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.form-note,
+.form-status {
+  margin: 1rem 0 0;
+  line-height: 1.7;
+}
+
+.form-note {
+  color: rgba(244, 239, 230, 0.66);
+}
+
+.form-status {
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  border: 1px solid transparent;
+}
+
+.form-status[data-state="error"] {
+  border-color: rgba(201, 98, 98, 0.34);
+  background: rgba(110, 22, 22, 0.26);
+  color: #ffd6d6;
+}
+
+.form-status[data-state="success"] {
+  border-color: rgba(216, 186, 106, 0.28);
+  background: rgba(216, 186, 106, 0.1);
+  color: var(--accent-strong);
+}
+
 .cta-section {
   text-align: center;
 }
@@ -944,6 +1056,7 @@ h3 {
   .hero-actions,
   .hero,
   .split-section,
+  .form-grid,
   .build-strip,
   .value-summary,
   .value-hero-grid,
@@ -970,6 +1083,10 @@ h3 {
   }
 
   .hero-actions {
+    display: grid;
+  }
+
+  .form-actions {
     display: grid;
   }
 

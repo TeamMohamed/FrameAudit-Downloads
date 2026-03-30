@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FrameAudit | Confidential Case Intake</title>
+  <title>FrameAudit | Screened Institutional Contact</title>
   <meta
     name="description"
-    content="FrameAudit confidential case intake, review delivery windows, and the information needed to scope a disputed-video assessment."
+    content="Screened institutional contact for FrameAudit using organization-owned email domains, structured inquiry details, and private next-step handling."
   >
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -77,34 +77,66 @@
 
         <article class="card screening-card reveal-up delay-1">
           <p class="eyebrow">Screening desk</p>
-          <h2>Use this structure when you make contact.</h2>
-          <div class="intake-template">
-            <div class="intake-row">
-              <span>Full name and role</span>
-              <strong>State your title and decision-making or review role.</strong>
+          <h2>Submit a screened institutional inquiry.</h2>
+          <p class="screening-note">Browser screening rejects common personal email domains and checks that the work email aligns with the organization website you provide.</p>
+          <form class="screened-form" id="screened-contact-form" novalidate>
+            <div class="form-grid">
+              <label class="form-field">
+                <span>Full name</span>
+                <input id="full-name" name="full-name" type="text" autocomplete="name" required>
+              </label>
+              <label class="form-field">
+                <span>Job title</span>
+                <input id="job-title" name="job-title" type="text" autocomplete="organization-title" required>
+              </label>
+              <label class="form-field">
+                <span>Organization</span>
+                <input id="organization" name="organization" type="text" autocomplete="organization" required>
+              </label>
+              <label class="form-field">
+                <span>Work email</span>
+                <input id="work-email" name="work-email" type="email" autocomplete="email" inputmode="email" required>
+              </label>
+              <label class="form-field">
+                <span>Organization website</span>
+                <input id="organization-website" name="organization-website" type="text" inputmode="url" placeholder="company.com" required>
+              </label>
+              <label class="form-field">
+                <span>Inquiry type</span>
+                <select id="inquiry-type" name="inquiry-type" required>
+                  <option value="">Select inquiry type</option>
+                  <option value="Case review">Case review</option>
+                  <option value="Commercial briefing">Commercial briefing</option>
+                  <option value="Private software access">Private software access</option>
+                  <option value="Partnership">Partnership</option>
+                </select>
+              </label>
+              <label class="form-field">
+                <span>Timeline</span>
+                <select id="timeline" name="timeline" required>
+                  <option value="">Select timeline</option>
+                  <option value="Same week">Same week</option>
+                  <option value="Two weeks">Within two weeks</option>
+                  <option value="This month">This month</option>
+                  <option value="Exploratory">Exploratory</option>
+                </select>
+              </label>
+              <label class="form-field form-field--full">
+                <span>Matter summary</span>
+                <textarea id="matter-summary" name="matter-summary" rows="6" required placeholder="Summarize the dispute, recording type, urgency, and what needs to be clarified. Do not paste evidence or sensitive material here."></textarea>
+              </label>
+              <label class="form-check form-field--full">
+                <input id="screening-confirmation" name="screening-confirmation" type="checkbox" required>
+                <span>I am contacting from an organization-owned email domain, I represent the named organization, and I will not send evidence through this public page.</span>
+              </label>
             </div>
-            <div class="intake-row">
-              <span>Organization</span>
-              <strong>Give the company, firm, chamber, insurer, regulator, or institution name.</strong>
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">Generate Screened Email</button>
+              <a class="button button-tertiary" href="mailto:TeamMohamed@proton.me?subject=FrameAudit%20Screened%20Inquiry%20Request">Fallback Direct Email</a>
             </div>
-            <div class="intake-row">
-              <span>Work email and website</span>
-              <strong>Use the organization-owned domain and include the public website.</strong>
-            </div>
-            <div class="intake-row">
-              <span>Inquiry type</span>
-              <strong>Case review, commercial briefing, private software access, or partnership.</strong>
-            </div>
-            <div class="intake-row">
-              <span>Matter summary</span>
-              <strong>Explain the dispute, recording type, timing pressure, and what needs to be clarified.</strong>
-            </div>
-            <div class="intake-row">
-              <span>Transfer readiness</span>
-              <strong>Confirm that evidence will only be shared after a private route is approved.</strong>
-            </div>
-          </div>
-          <p class="screening-note">Personal inboxes and unsolicited evidence submissions are screened out.</p>
+            <p class="form-note">Passing screening opens a structured email draft for manual review. Server-side enforcement can be added later with a private form backend.</p>
+            <p class="form-status" id="screened-contact-status" hidden></p>
+          </form>
         </article>
       </section>
 
@@ -164,5 +196,6 @@
       </section>
     </main>
   </div>
+  <script src="./contact.js" defer></script>
 </body>
 </html>
