@@ -139,6 +139,10 @@ h3 {
   padding: 4.5rem 0;
 }
 
+#screening-desk {
+  scroll-margin-top: 2rem;
+}
+
 .hero {
   display: grid;
   grid-template-columns: 1.08fr 0.92fr;
