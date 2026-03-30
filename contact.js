@@ -36,6 +36,8 @@ let turnstileToken = "";
 let turnstileWidgetId = null;
 let turnstileReadyPromise = null;
 
+applyPrefillFromQuery();
+
 if (honeyLinkNode && honeyEmail) {
   honeyLinkNode.href = `mailto:${honeyEmail}`;
   honeyLinkNode.textContent = honeyEmail;
@@ -331,6 +333,41 @@ function resetTurnstile() {
 
 function getValue(id) {
   return document.getElementById(id)?.value.trim() ?? "";
+}
+
+function applyPrefillFromQuery() {
+  try {
+    const pageUrl = new URL(globalThis.location.href);
+    const inquiryValue = normalizeInquiryPrefill(pageUrl.searchParams.get("inquiry") ?? "");
+    if (!inquiryValue) {
+      return;
+    }
+
+    const inquirySelect = document.getElementById("inquiry-type");
+    if (inquirySelect && !inquirySelect.value) {
+      inquirySelect.value = inquiryValue;
+    }
+  } catch {
+  }
+}
+
+function normalizeInquiryPrefill(value) {
+  const normalized = value.trim().toLowerCase();
+  switch (normalized) {
+    case "case-review":
+    case "case review":
+      return "Case review";
+    case "commercial-briefing":
+    case "commercial briefing":
+      return "Commercial briefing";
+    case "private-software-access":
+    case "private software access":
+      return "Private software access";
+    case "partnership":
+      return "Partnership";
+    default:
+      return "";
+  }
 }
 
 function resolveLiveConfigUrl() {
