@@ -26,8 +26,9 @@ const honeyLinkNode = document.getElementById("screened-contact-honey-link");
 const endpointMeta = document.querySelector('meta[name="frameaudit-intake-endpoint"]');
 const turnstileMeta = document.querySelector('meta[name="frameaudit-turnstile-site-key"]');
 const honeyEmailMeta = document.querySelector('meta[name="frameaudit-honey-email"]');
-const intakeEndpoint = normalizeEndpoint(endpointMeta?.getAttribute("content") ?? "");
-const turnstileSiteKey = normalizeEndpoint(turnstileMeta?.getAttribute("content") ?? "");
+const liveConfigUrl = resolveLiveConfigUrl();
+let intakeEndpoint = normalizeEndpoint(endpointMeta?.getAttribute("content") ?? "");
+let turnstileSiteKey = normalizeEndpoint(turnstileMeta?.getAttribute("content") ?? "");
 const honeyEmail = normalizeEndpoint(honeyEmailMeta?.getAttribute("content") ?? "").toLowerCase();
 const minimumScreeningSeconds = 4;
 let formOpenedAtMs = Date.now();
@@ -110,6 +111,15 @@ if (form && statusNode) {
       return;
     }
 
+    if (intakeEndpoint) {
+      const liveConfigState = await syncLiveConfig();
+      if (liveConfigState.siteKeyChanged) {
+        setStatus("The live screening configuration changed. Refresh the page and complete the human-verification challenge again.", "error");
+        resetTurnstile();
+        return;
+      }
+    }
+
     if (intakeEndpoint && turnstileSiteKey && !submission.turnstileToken) {
       setStatus("Complete the human-verification challenge before submitting the inquiry.", "error");
       return;
@@ -188,13 +198,73 @@ async function submitToEndpoint(submission) {
     resetTurnstile();
     setStatus(data.message ?? "Inquiry accepted. You will receive a reply after screening.", "success");
   } catch {
-    setStatus("The screening service is unavailable right now. Try again later or use the direct email fallback in a build that exposes it.", "error");
+    const liveConfigState = await syncLiveConfig();
+    if (liveConfigState.siteKeyChanged) {
+      setStatus("The live screening configuration changed. Refresh the page and complete the human-verification challenge again.", "error");
+    } else if (liveConfigState.endpointChanged) {
+      setStatus("This page was holding an expired live screening route. Submit the inquiry again now that the current route has been loaded.", "error");
+    } else {
+      setStatus("The screening route on this page could not be reached. Refresh and try again. If live intake was restarted recently, this tab may still be stale.", "error");
+    }
     resetTurnstile();
   }
 }
 
 function resetFormWindow() {
   formOpenedAtMs = Date.now();
+}
+
+async function syncLiveConfig() {
+  if (!liveConfigUrl) {
+    return {
+      endpointChanged: false,
+      siteKeyChanged: false
+    };
+  }
+
+  try {
+    const configUrl = new URL(liveConfigUrl);
+    configUrl.searchParams.set("frameaudit-live-config", `${Date.now()}`);
+
+    const response = await fetch(configUrl.toString(), {
+      cache: "no-store"
+    });
+    if (!response.ok) {
+      return {
+        endpointChanged: false,
+        siteKeyChanged: false
+      };
+    }
+
+    const html = await response.text();
+    const documentNode = new DOMParser().parseFromString(html, "text/html");
+    const nextEndpoint = normalizeEndpoint(
+      documentNode.querySelector('meta[name="frameaudit-intake-endpoint"]')?.getAttribute("content") ?? ""
+    );
+    const nextSiteKey = normalizeEndpoint(
+      documentNode.querySelector('meta[name="frameaudit-turnstile-site-key"]')?.getAttribute("content") ?? ""
+    );
+
+    const endpointChanged = Boolean(nextEndpoint) && nextEndpoint !== intakeEndpoint;
+    const siteKeyChanged = Boolean(nextSiteKey) && nextSiteKey !== turnstileSiteKey;
+
+    if (nextEndpoint) {
+      intakeEndpoint = nextEndpoint;
+    }
+    if (nextSiteKey) {
+      turnstileSiteKey = nextSiteKey;
+    }
+
+    return {
+      endpointChanged,
+      siteKeyChanged
+    };
+  } catch {
+    return {
+      endpointChanged: false,
+      siteKeyChanged: false
+    };
+  }
 }
 
 function setupTurnstile() {
@@ -261,6 +331,21 @@ function resetTurnstile() {
 
 function getValue(id) {
   return document.getElementById(id)?.value.trim() ?? "";
+}
+
+function resolveLiveConfigUrl() {
+  try {
+    const pageUrl = new URL(globalThis.location.href);
+    if (!/^https?:$/.test(pageUrl.protocol)) {
+      return "";
+    }
+
+    pageUrl.search = "";
+    pageUrl.hash = "";
+    return pageUrl.toString();
+  } catch {
+    return "";
+  }
 }
 
 function normalizeEndpoint(value) {
