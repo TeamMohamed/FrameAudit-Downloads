@@ -8,6 +8,7 @@
     name="description"
     content="Screened institutional contact for FrameAudit using organization-owned email domains, structured inquiry details, and private next-step handling."
   >
+  <meta name="frameaudit-intake-endpoint" content="">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -131,10 +132,10 @@
               </label>
             </div>
             <div class="form-actions">
-              <button class="button button-primary" type="submit">Generate Screened Email</button>
-              <a class="button button-tertiary" href="mailto:TeamMohamed@proton.me?subject=FrameAudit%20Screened%20Inquiry%20Request">Fallback Direct Email</a>
+              <button class="button button-primary" id="screened-contact-submit" type="submit">Generate Screened Email</button>
+              <a class="button button-tertiary" id="screened-contact-fallback" href="mailto:TeamMohamed@proton.me?subject=FrameAudit%20Screened%20Inquiry%20Request">Fallback Direct Email</a>
             </div>
-            <p class="form-note">Passing screening opens a structured email draft for manual review. Server-side enforcement can be added later with a private form backend.</p>
+            <p class="form-note" id="screened-contact-note">Passing screening opens a structured email draft for manual review. When a server endpoint is configured, rejected domains are stopped before they ever reach you.</p>
             <p class="form-status" id="screened-contact-status" hidden></p>
           </form>
         </article>
