@@ -824,6 +824,45 @@ h3 {
   line-height: 1.7;
 }
 
+.screening-card {
+  background: linear-gradient(180deg, rgba(216, 186, 106, 0.08), rgba(8, 13, 18, 0.68));
+}
+
+.intake-template {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+.intake-row {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(216, 186, 106, 0.16);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.intake-row span {
+  color: rgba(244, 239, 230, 0.54);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.intake-row strong {
+  color: var(--ink);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.screening-note {
+  margin: 1rem 0 0;
+  color: var(--accent-strong);
+  line-height: 1.7;
+}
+
 .cta-section {
   text-align: center;
 }
