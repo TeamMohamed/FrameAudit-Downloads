@@ -22,15 +22,23 @@ const fallbackNode = document.getElementById("screened-contact-fallback");
 const noteNode = document.getElementById("screened-contact-note");
 const challengeNode = document.getElementById("screened-contact-challenge");
 const challengeWidgetNode = document.getElementById("screened-contact-turnstile");
+const honeyLinkNode = document.getElementById("screened-contact-honey-link");
 const endpointMeta = document.querySelector('meta[name="frameaudit-intake-endpoint"]');
 const turnstileMeta = document.querySelector('meta[name="frameaudit-turnstile-site-key"]');
+const honeyEmailMeta = document.querySelector('meta[name="frameaudit-honey-email"]');
 const intakeEndpoint = normalizeEndpoint(endpointMeta?.getAttribute("content") ?? "");
 const turnstileSiteKey = normalizeEndpoint(turnstileMeta?.getAttribute("content") ?? "");
+const honeyEmail = normalizeEndpoint(honeyEmailMeta?.getAttribute("content") ?? "").toLowerCase();
 const minimumScreeningSeconds = 4;
 let formOpenedAtMs = Date.now();
 let turnstileToken = "";
 let turnstileWidgetId = null;
 let turnstileReadyPromise = null;
+
+if (honeyLinkNode && honeyEmail) {
+  honeyLinkNode.href = `mailto:${honeyEmail}`;
+  honeyLinkNode.textContent = honeyEmail;
+}
 
 if (submitNode && noteNode) {
   if (intakeEndpoint) {
