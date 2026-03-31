@@ -780,6 +780,14 @@ h3 {
   line-height: 1.85;
 }
 
+.page-copy--timeline p {
+  margin: 0;
+}
+
+.page-copy--timeline p + p {
+  margin-top: 1.15rem;
+}
+
 .coming-soon-panel {
   display: grid;
   place-items: center;
