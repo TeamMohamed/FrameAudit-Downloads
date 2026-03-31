@@ -135,6 +135,15 @@ h3 {
   color: var(--ink);
 }
 
+.site-nav__disabled {
+  color: rgba(244, 239, 230, 0.46);
+  cursor: help;
+}
+
+.site-nav__disabled:hover {
+  color: rgba(244, 239, 230, 0.72);
+}
+
 .section {
   padding: 4.5rem 0;
 }
