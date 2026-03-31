@@ -772,6 +772,11 @@ h3 {
   max-width: 64rem;
 }
 
+.page-hero--timeline {
+  margin-inline: auto;
+  text-align: center;
+}
+
 .page-copy {
   max-width: 46rem;
   margin-top: 1.35rem;
@@ -782,6 +787,11 @@ h3 {
 
 .page-copy--timeline p {
   margin: 0;
+  text-align: left;
+}
+
+.page-copy--timeline {
+  margin-inline: auto;
 }
 
 .page-copy--timeline p + p {
