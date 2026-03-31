@@ -772,6 +772,11 @@ h3 {
   max-width: 64rem;
 }
 
+.page-hero--centered {
+  margin-inline: auto;
+  text-align: center;
+}
+
 .page-hero--timeline {
   margin-inline: auto;
   text-align: center;
@@ -785,6 +790,11 @@ h3 {
   line-height: 1.85;
 }
 
+.page-copy--centered {
+  margin-inline: auto;
+  text-align: center;
+}
+
 .page-copy--timeline p {
   margin: 0;
   text-align: left;
@@ -796,6 +806,24 @@ h3 {
 
 .page-copy--timeline p + p {
   margin-top: 1.15rem;
+}
+
+.hero-actions--centered {
+  justify-content: center;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.proof-card--centered {
+  text-align: center;
+}
+
+.proof-stack-list {
+  text-align: left;
 }
 
 .coming-soon-panel {
@@ -1313,6 +1341,7 @@ h3 {
   .value-band,
   .value-stat-grid,
   .delivery-strip,
+  .proof-grid,
   .card-grid--signals,
   .pricing-grid,
   .use-case-grid,
@@ -1363,6 +1392,7 @@ h3 {
   .value-band,
   .value-stat-grid,
   .delivery-strip,
+  .proof-grid,
   .card-grid--signals,
   .pricing-grid,
   .use-case-grid,
