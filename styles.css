@@ -786,6 +786,10 @@ h3 {
   text-align: center;
 }
 
+.page-hero--timeline h1 {
+  margin-inline: auto;
+}
+
 .page-copy {
   max-width: 46rem;
   margin-top: 1.35rem;
