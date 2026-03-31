@@ -777,6 +777,10 @@ h3 {
   text-align: center;
 }
 
+.page-hero--centered h1 {
+  margin-inline: auto;
+}
+
 .page-hero--timeline {
   margin-inline: auto;
   text-align: center;
